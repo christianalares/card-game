@@ -1,3 +1,196 @@
 body {
-    
-}
+  background: #45a173; }
+
+#dealer {
+  overflow: visible;
+  padding-bottom: 10px; }
+
+.section {
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-top: 20px; }
+
+.min-height {
+  min-height: 176px; }
+
+#deck {
+  position: relative;
+  float: left;
+  width: 86px;
+  height: 118px; }
+
+.card {
+  width: 71px;
+  height: 103px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: 100% 100%;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); }
+
+.dealt-card {
+  position: static;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 10px; }
+
+#player-pane, #ai-pane {
+  overflow: hidden; }
+
+.back {
+  background-image: url("../cards/back.png") !important; }
+
+.hearts-2 {
+  background-image: url("../cards/2_of_hearts.png"); }
+
+.hearts-3 {
+  background-image: url("../cards/3_of_hearts.png"); }
+
+.hearts-4 {
+  background-image: url("../cards/4_of_hearts.png"); }
+
+.hearts-5 {
+  background-image: url("../cards/5_of_hearts.png"); }
+
+.hearts-6 {
+  background-image: url("../cards/6_of_hearts.png"); }
+
+.hearts-7 {
+  background-image: url("../cards/7_of_hearts.png"); }
+
+.hearts-8 {
+  background-image: url("../cards/8_of_hearts.png"); }
+
+.hearts-9 {
+  background-image: url("../cards/9_of_hearts.png"); }
+
+.hearts-10 {
+  background-image: url("../cards/10_of_hearts.png"); }
+
+.hearts-j {
+  background-image: url("../cards/j_of_hearts.png"); }
+
+.hearts-q {
+  background-image: url("../cards/q_of_hearts.png"); }
+
+.hearts-k {
+  background-image: url("../cards/k_of_hearts.png"); }
+
+.hearts-a {
+  background-image: url("../cards/a_of_hearts.png"); }
+
+.diamonds-2 {
+  background-image: url("../cards/2_of_diamonds.png"); }
+
+.diamonds-3 {
+  background-image: url("../cards/3_of_diamonds.png"); }
+
+.diamonds-4 {
+  background-image: url("../cards/4_of_diamonds.png"); }
+
+.diamonds-5 {
+  background-image: url("../cards/5_of_diamonds.png"); }
+
+.diamonds-6 {
+  background-image: url("../cards/6_of_diamonds.png"); }
+
+.diamonds-7 {
+  background-image: url("../cards/7_of_diamonds.png"); }
+
+.diamonds-8 {
+  background-image: url("../cards/8_of_diamonds.png"); }
+
+.diamonds-9 {
+  background-image: url("../cards/9_of_diamonds.png"); }
+
+.diamonds-10 {
+  background-image: url("../cards/10_of_diamonds.png"); }
+
+.diamonds-j {
+  background-image: url("../cards/j_of_diamonds.png"); }
+
+.diamonds-q {
+  background-image: url("../cards/q_of_diamonds.png"); }
+
+.diamonds-k {
+  background-image: url("../cards/k_of_diamonds.png"); }
+
+.diamonds-a {
+  background-image: url("../cards/a_of_diamonds.png"); }
+
+.spades-2 {
+  background-image: url("../cards/2_of_spades.png"); }
+
+.spades-3 {
+  background-image: url("../cards/3_of_spades.png"); }
+
+.spades-4 {
+  background-image: url("../cards/4_of_spades.png"); }
+
+.spades-5 {
+  background-image: url("../cards/5_of_spades.png"); }
+
+.spades-6 {
+  background-image: url("../cards/6_of_spades.png"); }
+
+.spades-7 {
+  background-image: url("../cards/7_of_spades.png"); }
+
+.spades-8 {
+  background-image: url("../cards/8_of_spades.png"); }
+
+.spades-9 {
+  background-image: url("../cards/9_of_spades.png"); }
+
+.spades-10 {
+  background-image: url("../cards/10_of_spades.png"); }
+
+.spades-j {
+  background-image: url("../cards/j_of_spades.png"); }
+
+.spades-q {
+  background-image: url("../cards/q_of_spades.png"); }
+
+.spades-k {
+  background-image: url("../cards/k_of_spades.png"); }
+
+.spades-a {
+  background-image: url("../cards/a_of_spades.png"); }
+
+.clubs-2 {
+  background-image: url("../cards/2_of_clubs.png"); }
+
+.clubs-3 {
+  background-image: url("../cards/3_of_clubs.png"); }
+
+.clubs-4 {
+  background-image: url("../cards/4_of_clubs.png"); }
+
+.clubs-5 {
+  background-image: url("../cards/5_of_clubs.png"); }
+
+.clubs-6 {
+  background-image: url("../cards/6_of_clubs.png"); }
+
+.clubs-7 {
+  background-image: url("../cards/7_of_clubs.png"); }
+
+.clubs-8 {
+  background-image: url("../cards/8_of_clubs.png"); }
+
+.clubs-9 {
+  background-image: url("../cards/9_of_clubs.png"); }
+
+.clubs-10 {
+  background-image: url("../cards/10_of_clubs.png"); }
+
+.clubs-j {
+  background-image: url("../cards/j_of_clubs.png"); }
+
+.clubs-q {
+  background-image: url("../cards/q_of_clubs.png"); }
+
+.clubs-k {
+  background-image: url("../cards/k_of_clubs.png"); }
+
+.clubs-a {
+  background-image: url("../cards/a_of_clubs.png"); }

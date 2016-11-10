@@ -105,35 +105,40 @@ var Cardgame = {
 				// If we're dealing to player
 				if (toWho === 'player') {
 					$pane = self.$playerPane;
+					// var newOffset = i*91.5;
 				}
 
 				// Else if we're dealing to AI
 				else if (toWho === 'ai') {
 					$pane = self.$AIPane;
+					// var newOffset = i*91.5;
 				}
 
 				// Else if we're dealing to both player and ai
 				else if (toWho === 'both') {
-
-					if (i % 2 === 0) {
-						$pane = self.$playerPane;
-					}
-					else {
-						$pane = self.$AIPane;
-					}
+					$pane = (i % 2 !== 0) ? self.$playerPane : self.$AIPane;
+					// var newOffset = 0;
 				}
+				
+				if ($pane.children().last().length === 0) {
+					offsetX = $pane.offset().top - self.$deck.offset().top,
+					offsetY = $pane.offset().left - self.$deck.offset().left;
+				} else {
+					offsetX = $pane.children().last().offset().top - self.$deck.offset().top,
+					offsetY = $pane.children().last().offset().left - self.$deck.offset().left;
 
-				console.log( $pane.offset() );
-				offsetX = $pane.offset().top - self.$deck.offset().top,
-				offsetY = $pane.offset().left - self.$deck.offset().left;
+					console.log( offsetX, offsetY );
+				}
 
 				$this.animate({
 					'top': offsetX,
 					'left': offsetY
-				}, 200, function() {
+				}, 1000, function() {
 				    $this.remove().addClass('dealt-card').appendTo( $pane );
+
+				    // console.log( $pane.children().last().offset().left );
 				});
-			}, i * 300);
+			}, i * 1500);
 		});
 	
 	}
