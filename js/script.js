@@ -13,7 +13,7 @@ var Cardgame = {
 	    this.cacheDom();
 	    this.bindEvents();
 	    this.createDeck();
-	    // this.shuffleDeck();
+	    this.shuffleDeck();
 	    this.renderDeck();
 	},
 
@@ -25,6 +25,7 @@ var Cardgame = {
 	    this.$btnDeal = $('#btn-deal');
 	    this.$playerPane = $('#player-pane');
 	    this.$AIPane = $('#ai-pane');
+	    this.$cardSlots = $('.card-slots');
 	},
 
 	// ----------------------------------------
@@ -33,7 +34,7 @@ var Cardgame = {
 	bindEvents: function() {
 		var self = this;
     	this.$btnDeal.on( 'click', function() {
-    	    self.dealCards('both', 5);
+    	    self.dealCards('both');
     	} );
 	},
 
@@ -63,6 +64,7 @@ var Cardgame = {
 		for (var i = this.cards.length; i > 0; i--) {
 			rand = Math.floor (Math.random() * i);
 			tempArray.push(this.cards[rand]);
+			this.cards.splice(rand, 1);
 		}
 		this.cards = tempArray;
 	},
@@ -88,60 +90,119 @@ var Cardgame = {
 	// ----------------------------------------
 	// Deal the cards
 	// ----------------------------------------
-	dealCards: function(toWho, howMany) {
-		// Duble amount of cards if we're dealing to both players
-		howMany = (toWho === 'both') ? howMany * 2 : howMany;
+	dealCards: function(toWho) {
+		var self = this;
+		var speed = 400;
 
-		var $chunkOfCards = this.$deck.children().slice(0, howMany),
-			self = this,
-			$pane,
-			offsetX,
-			offsetY;
+	   this.getEmptySlots().each(function(i) {
+	   	var $this = $(this);
+	   	var $chunkOfCards = self.$deck.children().slice(0, self.getEmptySlots().length);
+	   	var $currentCard = $( $chunkOfCards[i] );
+	   	var offsetX = $this.offset().top - self.$deck.offset().top + 5;
+	   	var offsetY = $this.offset().left - self.$deck.offset().left + 5;
 
-		$chunkOfCards.each(function(i) {
-			var $this = $(this);
-
+	   	// Animate card every 500 ms
 			setTimeout(function() {
-				// If we're dealing to player
-				if (toWho === 'player') {
-					$pane = self.$playerPane;
-					// var newOffset = i*91.5;
-				}
-
-				// Else if we're dealing to AI
-				else if (toWho === 'ai') {
-					$pane = self.$AIPane;
-					// var newOffset = i*91.5;
-				}
-
-				// Else if we're dealing to both player and ai
-				else if (toWho === 'both') {
-					$pane = (i % 2 !== 0) ? self.$playerPane : self.$AIPane;
-					// var newOffset = 0;
-				}
-				
-				if ($pane.children().last().length === 0) {
-					offsetX = $pane.offset().top - self.$deck.offset().top,
-					offsetY = $pane.offset().left - self.$deck.offset().left;
-				} else {
-					offsetX = $pane.children().last().offset().top - self.$deck.offset().top,
-					offsetY = $pane.children().last().offset().left - self.$deck.offset().left;
-
-					console.log( offsetX, offsetY );
-				}
-
-				$this.animate({
+				$currentCard.addClass('rotate');
+	   		$currentCard.animate({
 					'top': offsetX,
 					'left': offsetY
-				}, 1000, function() {
-				    $this.remove().addClass('dealt-card').appendTo( $pane );
 
-				    // console.log( $pane.children().last().offset().left );
+				}, speed, function() {
+
+					$currentCard.remove().appendTo( '#' + $this.attr('id') ).css({
+						'position': 'static',
+						'z-index': i,
+					}).removeClass('rotate');
+
 				});
-			}, i * 1500);
+
+			}, (speed + 100) * i);
+
 		});
+
+
+	},
+
+	// ----------------------------------------
+	// Deal the cards
+	// ----------------------------------------
+	// dealCards: function(toWho) {
+	// 	var self = this;
+	// 	// Duble amount of cards if we're dealing to both players
+	// 	// howMany = (toWho === 'both') ? howMany * 2 : howMany;
+	// 	var howMany = this.getEmptySlots().length;
+
+	// 	var $chunkOfCards = this.$deck.children().slice(0, howMany),
+	// 		self = this,
+	// 		slot,
+	// 		offsetX,
+	// 		offsetY, aiSlot = 4;
+
+	// 	$chunkOfCards.each(function(i) {
+	// 		var $this = $(this);
+
+	// 		setTimeout(function() {
+	// 			$this.addClass('rotate');
+
+	// 			// If we're dealing to player
+	// 			if (toWho === 'player') {
+	// 				slot = i;
+	// 				// var newOffset = i*91.5;
+	// 			}
+
+	// 			// Else if we're dealing to AI
+	// 			else if (toWho === 'ai') {
+	// 				slot = i + 5;
+	// 				// var newOffset = i*91.5;
+	// 			}
+
+	// 			// Else if we're dealing to both player and ai
+	// 			else if (toWho === 'both') {
+	// 				if (i % 2 === 0) {
+	// 					slot = i/2;
+	// 				} else {
+	// 					// slot = aiSlot;
+	// 					slot = i + aiSlot;
+	// 					aiSlot--;
+	// 				}
+
+	// 				// slot = i;
+	// 			}
+
+	// 			offsetX = $('#slot-' + slot).offset().top - self.$deck.offset().top,
+	// 			offsetY = $('#slot-' + slot).offset().left - self.$deck.offset().left;
+
+	// 			// console.log( slot );
+
+	// 			// offsetX = $pane.offset().top - self.$deck.offset().top,
+	// 			// offsetY = $pane.offset().left - self.$deck.offset().left;
+
+	// 			$this.animate({
+
+	// 				'top': offsetX,
+	// 				'left': offsetY
+
+	// 			}, 400, function() {
+
+	// 				$this.remove().appendTo('#slot-' + slot).css({
+	// 					'position': 'static',
+	// 					'z-index': i,
+	// 				}).removeClass('rotate');
+
+	// 			});
+	// 		}, i * 450);
+	// 	});
 	
-	}
+	// },
+
+	// ----------------------------------------
+	// Returns number of empty card slots
+	// ----------------------------------------
+	getEmptySlots: function() {
+		// Håll i hatten
+	   return $('.card-slot:not(:has(div))');
+	},
 
 }
 

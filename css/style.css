@@ -15,12 +15,12 @@ body {
 #deck {
   position: relative;
   float: left;
-  width: 86px;
-  height: 118px; }
+  width: 106px;
+  height: 138px; }
 
 .card {
-  width: 71px;
-  height: 103px;
+  width: 91px;
+  height: 123px;
   position: absolute;
   top: 0;
   left: 0;
@@ -30,11 +30,28 @@ body {
 .dealt-card {
   position: static;
   float: left;
-  margin-right: 20px;
-  margin-bottom: 10px; }
+  margin-right: 20px; }
 
 #player-pane, #ai-pane {
   overflow: hidden; }
+
+.card-slot {
+  float: left;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 101px;
+  height: 133px;
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 15px; }
+
+.rotate {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+  -webkit-transition: -webkit-transform .4s ease-in-out;
+  transition: -webkit-transform .4s ease-in-out;
+  transition: transform .4s ease-in-out;
+  transition: transform .4s ease-in-out, -webkit-transform .4s ease-in-out; }
 
 .back {
   background-image: url("../cards/back.png") !important; }
