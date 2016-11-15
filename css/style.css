@@ -25,7 +25,13 @@ body {
   top: 0;
   left: 0;
   background-size: 100% 100%;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); }
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s; }
 
 .dealt-card {
   position: static;
@@ -33,7 +39,7 @@ body {
   margin-right: 20px; }
 
 #player-pane, #ai-pane {
-  overflow: hidden; }
+  overflow: visible; }
 
 .card-slot {
   float: left;
@@ -43,7 +49,9 @@ body {
   margin-right: 10px;
   padding: 5px;
   border-radius: 5px;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  -webkit-perspective: 0;
+          perspective: 0; }
 
 .rotate {
   -webkit-transform: rotate(360deg);
@@ -53,8 +61,30 @@ body {
   transition: transform .4s ease-in-out;
   transition: transform .4s ease-in-out, -webkit-transform .4s ease-in-out; }
 
+.card.face-up {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg); }
+
+.card figure {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-size: 100% 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden; }
+
 .back {
   background-image: url("../cards/back.png") !important; }
+
+.front {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg); }
+
+.selected-card {
+  margin-top: -10px;
+  -webkit-transition: margin .2s ease-in-out;
+  transition: margin .2s ease-in-out; }
 
 .hearts-2 {
   background-image: url("../cards/2_of_hearts.png"); }
