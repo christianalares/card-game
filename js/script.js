@@ -23,9 +23,11 @@ var Cardgame = {
 	cacheDom: function() {
 	    this.$deck = $('#deck');
 	    this.$btnDeal = $('#btn-deal');
+	    this.$btnChange = $('#btn-change');
 	    this.$playerPane = $('#player-pane');
 	    this.$AIPane = $('#ai-pane');
 	    this.$cardSlots = $('.card-slots');
+	    this.$wasteDiv = $('#waste');
 	},
 
 	// ----------------------------------------
@@ -34,9 +36,9 @@ var Cardgame = {
 	bindEvents: function() {
 		var self = this;
     	this.$btnDeal.on( 'click', function() {
-    	    self.dealCards('both');
-    	} );
-
+    	    self.dealCards();
+    	});
+    	this.$btnChange.on( 'click', self.changeCards);
     	$('#player-pane .card-slot').on('click', self.selectCard);
 	},
 
@@ -80,10 +82,8 @@ var Cardgame = {
 			offsetPos;
 
 		for (var i = this.cards.length -1; i >= 0; i--) {
-			// console.log( i );
 			offsetPos = (this.cards.length - i) / 4;
 			cardID = this.cards[i].suit.toLowerCase() + '-' + this.cards[i].rank.toLowerCase();
-			// htmlString += '<div class="back card '+ cardID +'" style="top: '+ offsetPos +'px; left: '+ offsetPos +'px; z-index: '+ i +'"></div>\n';
 
 			htmlString += '<div class="card" style="top: '+ offsetPos +'px; left: '+ offsetPos +'px; z-index: '+ i +'">';
 				htmlString += '<figure class="back"></figure>';
@@ -144,7 +144,7 @@ var Cardgame = {
 				}).removeClass('rotate');
 
 				if (i === max - 1) {
-					self.flipPlayerCards();
+					self.flipPlayerCards(max);
 				}
 
 			});
@@ -155,18 +155,25 @@ var Cardgame = {
 	// ----------------------------------------
 	// Flip the cards
 	// ----------------------------------------
-	flipPlayerCards: function() {
+	flipPlayerCards: function(max) {
 		   var $cards = $('.card-slot');
 		   var speed = 100;
+		   var self = this;
 		    
 		   $cards.each(function(i) {
 				if (i < 5) {
 			    	var $this = $(this);
 
 				   setTimeout(function() {
-				       $this.children('div').addClass('face-up');
+				      $this.children('div').addClass('face-up');
+				   	if (i === 4) {
+				   		self.$btnDeal.attr('disabled', true);
+				   		self.$btnChange.attr('disabled', false);
+				   	}
 				   }, speed * i);
+
 				}
+
 		   });
 	},
 
@@ -176,8 +183,6 @@ var Cardgame = {
 	selectCard: function() {
 		var $this = $(this);
 
-		// $(this).children('.face-up').toggleClass('selected-card');
-		console.log( $(this) );
 		if ( $this.hasClass("selected-card") ) {
 	      $this.stop().animate({
 	      	marginTop: 0,
@@ -191,9 +196,44 @@ var Cardgame = {
 	   	}, 50);
 	   }
 	   $this.toggleClass("selected-card");
+	},
 
-		// console.log( $(this).children('div').toggleClass('selected-card') );
-	   // $(this).parent('').toggleClass('selected-card');
+
+	// ----------------------------------------
+	// Change the cards
+	// ----------------------------------------
+	changeCards: function() {
+	   var $selectedCards = $('.selected-card');
+	   var speed = 400;
+	   var self = this;
+ 		// var offsetX = $('#waste').offset().top - $this.offset().top;
+ 		// var offsetY = $('#waste').offset().left - $this.offset().left;
+	    
+	    // console.log( offsetX, offsetY );
+	    // console.log( 'hae' );
+
+	    $selectedCards.each(function(i) {
+	    		var $this = $(this).children('.card');
+
+	    		var offsetX = $('#waste').offset().top - $this.offset().top;
+ 				var offsetY = $('#waste').offset().left - $this.offset().left;
+ 				var nr = 20 + Math.round( Math.random() * 340 );
+
+ 				console.log( nr);
+
+	        setTimeout(function() {
+	        	// console.log( $this );
+	            $this.css({
+	            	position: 'absolute',
+	            	top: 5,
+	            	left: 5
+	            }).addClass('rotated-' + nr).animate({
+	            	top: offsetX,
+	            	left: offsetY
+	            }, 1000);
+	        }, speed * i);
+
+	    });
 	},
 
 	// ----------------------------------------
