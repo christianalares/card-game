@@ -1,2 +1,2 @@
-# Kortspel
-Task for KYH
+# Card game
+Started on this card game...
